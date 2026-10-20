@@ -1,113 +1,112 @@
-# Echoes 回响
+# Echoes
 
-[English](README.en.md)
+[简体中文](README.zh-CN.md)
 
-> **把散落在 AI 对话里的自己，收集回来。**
+> **Gather the scattered parts of yourself from AI conversations.**
 
-Echoes 是一个以本地 Markdown 和 Obsidian 为中心的个人 AI 对话整理工作流。它帮助你把散落在 ChatGPT、DeepSeek、Codex 等 AI 对话中的想法、规划、待办、问题、决定和资料线索收集起来，保留来源，再由 AI 协助整理与回顾。
+Echoes is a local-first workflow for collecting and reviewing useful knowledge scattered across conversations with ChatGPT, DeepSeek, Codex, and other AI tools. It helps preserve and organize your ideas, plans, tasks, questions, decisions, and references in an Obsidian vault.
 
-AI 对话像一团 `CHAOS`：有灵感，也有重复、未验证的建议和暂时搁置的问题。Echoes 把它们汇集成可追溯、可检索、可持续整理的个人知识回响。
+AI conversations can feel like `CHAOS`: valuable ideas sit beside repetition, unverified suggestions, and unresolved questions. Echoes gathers them into personal knowledge you can trace, search, and revisit.
 
-![Echoes 图标：散落的 CHAOS 汇入 E，再整理为 CHOES](echoes-icon.png)
+![Echoes icon: scattered CHAOS flows into E and is organized as CHOES](echoes-icon.png)
 
-## 开始使用
+## Getting Started
 
-1. 将仓库克隆或下载到你的 Obsidian Vault 中，并把项目文件夹命名为 `Echoes`。
-2. 安装上文提到的三个 Codex Skills。
-3. 在 `Echoes/Inbox/Raw/` 中放入网页聊天导出，或在 Codex 中调用捕获 Skill。
-4. 按“整理来源 → 提炼内容 → 审阅入库”的流程使用其他 Skills。
+1. Clone or download this repository into your Obsidian vault and name the project folder `Echoes`.
+2. Install the three Codex Skills described below.
+3. Put browser chat exports in `Echoes/Inbox/Raw/`, or invoke the capture Skill in Codex.
+4. Use the remaining Skills in order: organize sources, distill content, review and file.
 
-`Inbox/Raw/`、`Inbox/Review/` 和 `Inbox/Processed/` 中的个人内容已加入 `.gitignore`。分享或提交前仍应检查 Git 变更，确保没有私人对话进入仓库。
+Personal files in `Inbox/Raw/`, `Inbox/Review/`, and `Inbox/Processed/` are ignored by `.gitignore`. Review your Git changes before sharing or publishing to ensure private conversations are not included.
 
-## 设计原则
+## Principles
 
-- **本地优先**：以普通 Markdown 文件作为长期数据，Obsidian Vault 是知识库。
-- **来源可追溯**：整理后的笔记链接回原始对话；原文与提炼内容分开保存。
-- **区分观点归属**：标明内容来自用户、AI 建议、双方确认或尚不确定。
-- **先审阅再入库**：AI 生成候选条目和整理建议，用户确认后才写入正式分类。
-- **渐进整理**：先捕获，再索引和提炼，不要求保存时立刻完成归档。
+- **Local first:** Plain Markdown files are the durable source of truth; Obsidian is the knowledge workspace.
+- **Traceable sources:** Distilled notes link back to source conversations; transcripts stay separate from synthesized notes.
+- **Clear attribution:** Distinguish the user's words, AI suggestions, shared conclusions, and uncertain items.
+- **Review before filing:** AI proposes candidates and destinations; the user approves content before it enters the organized collection.
+- **Gradual organization:** Capture first, then index and distill when useful.
 
-## 工作流
+## Workflow
 
-1. **网页聊天**：安装 [AI Chat Exporter](https://github.com/Covai-Labs/ace)，打开 ChatGPT、DeepSeek 等对话，使用扩展导出 Markdown。将文件保存或移动到 Obsidian 库的 `Echoes/Inbox/Raw/`。如果用扩展的 Obsidian 直发功能创建在其他位置，再把导出的原文移入 `Raw/`。
-2. **Codex 会话**：在 Codex 桌面端或 VS Code 中调用 `ai-notes-inbox-capture`，把当前会话保存到 `Inbox/Raw/`。该 Skill 只能收集当前可用的会话上下文，不能读取未提供给它的历史会话。
-3. **整理来源**：调用 `ai-notes-inbox-organize`。它会盘点原始聊天，提出主题索引和处理状态报告；确认后才创建或更新索引，不改动原文。
-4. **提炼内容**：指定一条或多条来源，调用 `ai-notes-inbox-distill`。它会提取想法、规划、待办、问题、决定和资料线索，标注内容归属，并生成 `Inbox/Review/` 草稿。
-5. **审阅入库**：在 Codex 中审阅草稿，指出要保存或修改的条目。得到你的明确确认后，Skill 才把批准内容写入相应分类，并链接回原始对话。
+1. **Web chats:** Install [AI Chat Exporter](https://github.com/Covai-Labs/ace), open a conversation in ChatGPT, DeepSeek, or another supported site, and export it as Markdown. Save or move the file into `Echoes/Inbox/Raw/` in your Obsidian vault. If the extension's Obsidian handoff creates the note elsewhere, move the original export into `Raw/`.
+2. **Codex chats:** In Codex Desktop or VS Code, invoke `ai-notes-inbox-capture` to save the currently available conversation context into `Inbox/Raw/`. The Skill cannot read historical sessions that are not available in its context.
+3. **Organize sources:** Invoke `ai-notes-inbox-organize`. It inventories raw chats and proposes a topic index and processing report; it asks for confirmation before creating or updating the index and never changes transcripts.
+4. **Distill content:** Select one or more sources and invoke `ai-notes-inbox-distill`. It extracts ideas, plans, tasks, questions, decisions, and references, labels attribution, and creates a draft in `Inbox/Review/`.
+5. **Review and file:** Review the draft in Codex and identify which items to keep or revise. The Skill writes approved items to their categories only after your explicit confirmation, with links back to the raw conversation.
 
 ## Codex Skills
 
-仓库提供三个 Codex Skills，可安装到用户级目录 `~/.codex/skills/`。Codex 桌面端和 VS Code 中的 Codex 在使用同一 Codex 配置时可复用这些 Skills。
+This repository includes three Codex Skills. Install them in the user-level directory `~/.codex/skills/`. Codex Desktop and the VS Code Codex extension can share them when configured to use the same Codex home.
 
-| Skill | 用途 |
+| Skill | Purpose |
 | --- | --- |
-| `ai-notes-inbox-capture` | 保存当前 Codex 会话，或将已导入的 AI 聊天 Markdown 作为原始来源收集。 |
-| `ai-notes-inbox-organize` | 按主题整理原始收件箱、生成来源索引并汇报处理状态，不修改原文。 |
-| `ai-notes-inbox-distill` | 从选定来源提炼候选知识，检查关联和重复，并在确认后入库。 |
+| `ai-notes-inbox-capture` | Save the current Codex conversation or collect an imported AI chat Markdown file as a raw source. |
+| `ai-notes-inbox-organize` | Index raw conversations by topic and report processing status without changing transcripts. |
+| `ai-notes-inbox-distill` | Extract knowledge candidates from selected sources, check links and duplicates, and file approved items. |
 
-### 安装
+### Installation
 
-将 `Skills/` 下三个 Skill 文件夹复制到 Codex 用户 Skills 目录：
+Copy the three Skill folders from `Skills/` into your Codex user Skills directory:
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R Skills/ai-notes-inbox-* ~/.codex/skills/
 ```
 
-重启或刷新 Codex 后，可在 Skill 选择器中调用，也可以用自然语言描述需求，例如：
+Restart or refresh Codex, then use the Skill picker or ask in natural language, for example:
 
-- `用 ai-notes-inbox-capture 保存这段 Codex 对话。`
-- `用 ai-notes-inbox-organize 梳理 Echoes Inbox 的原始对话。`
-- `用 ai-notes-inbox-distill 整理 Raw 里的这条聊天，先生成待确认草稿。`
+- `Use ai-notes-inbox-capture to save this Codex conversation.`
+- `Use ai-notes-inbox-organize to review the raw Echoes inbox conversations.`
+- `Use ai-notes-inbox-distill to prepare a review draft from this chat.`
 
-> Skill 只能处理当前会话上下文和你提供/可访问的本地文件。它不会声称能读取当前上下文之外的 Codex 历史记录。
+> Skills can use the current conversation context and local files you provide or make accessible. They do not claim to read Codex history that is not available in the current context.
 
-## 浏览器聊天导入
+## Importing Browser Conversations
 
-网页聊天可使用 [AI Chat Exporter](https://github.com/Covai-Labs/ace) 导出为 Markdown，再保存到 `Inbox/Raw/`。该扩展是独立的第三方项目，不包含在本仓库中；请按其官方说明单独安装和配置。
+Use [AI Chat Exporter](https://github.com/Covai-Labs/ace) to export browser conversations as Markdown, then save them in `Inbox/Raw/`. AI Chat Exporter is an independent project and is not bundled with Echoes; install and configure it separately using its official instructions.
 
-当前仓库的 Skills 负责后续的本地收集与整理，不会自动监听网页或后台同步聊天。Codex 桌面端或 VS Code 当前会话通过 `ai-notes-inbox-capture` 保存。
+Echoes Skills handle local collection and organization after export. They do not monitor browser pages or sync conversations in the background. Save the current Codex Desktop or VS Code conversation with `ai-notes-inbox-capture`.
 
-## 致谢
-
-感谢 [AI Chat Exporter](https://github.com/Covai-Labs/ace) 提供跨 AI 网页对话的本地导出能力。Echoes 将其作为浏览器聊天采集的推荐入口；该项目由 Covai-Labs 独立维护，遵循其自己的许可证和发布节奏。
-
-## 目录结构
+## Folder Structure
 
 ```text
 Echoes/
 ├── Inbox/
-│   ├── Raw/          # 原始聊天导出（本地个人内容，不提交）
-│   ├── Review/       # 等待确认的提炼草稿
-│   └── Processed/    # 整理报告与已处理来源记录
-├── Ideas/            # 已确认的想法
-├── Plans/            # 已确认的规划
-├── Tasks/            # 已确认的待办
-├── Questions/        # 待解决的问题
-├── Decisions/        # 已确认的决定
-├── References/       # 资料线索
-├── Skills/           # 可安装的 Codex Skills
-└── Templates/        # Markdown 模板
+│   ├── Raw/          # Original conversation exports (private; not committed)
+│   ├── Review/       # Distillation drafts awaiting review
+│   └── Processed/    # Organization reports and processed-source records
+├── Ideas/            # Approved ideas
+├── Plans/            # Approved plans
+├── Tasks/            # Approved tasks
+├── Questions/        # Open questions
+├── Decisions/        # Approved decisions
+├── References/       # Reference leads
+├── Skills/           # Installable Codex Skills
+└── Templates/        # Markdown templates
 ```
 
-## 内容归属
+## Attribution
 
-每条提炼内容会标记为以下一种：
+Every distilled item should use one of these labels:
 
-- `user`：用户明确表达。
-- `assistant`：AI 提出的建议，不代表用户认同。
-- `shared`：对话中明确形成共识。
-- `uncertain`：无法判断归属或是否采纳。
+- `user`: explicitly expressed by the user.
+- `assistant`: proposed by an AI; not evidence that the user agrees.
+- `shared`: explicitly agreed in the conversation.
+- `uncertain`: attribution or adoption cannot be established.
 
-不得把 AI 建议自动改写成用户的观点、决定或待办；不得凭空补充截止日期、承诺或来源。
+Do not turn an AI suggestion into the user's belief, decision, or task without explicit acceptance. Do not invent deadlines, commitments, or sources.
 
-## 适用范围与当前状态
+## Scope and Status
 
-Echoes 当前提供 Obsidian 目录结构、Markdown 模板和 Codex Skills。浏览器扩展安装、历史数据批量导入、自动同步、自动语义去重和跨设备服务不属于当前版本能力。
+Echoes currently provides an Obsidian folder structure, Markdown templates, and Codex Skills. Browser extension installation, bulk historical imports, automatic background sync, automatic semantic deduplication, and cross-device services are outside the current version.
 
-平台网页结构和 Codex 的本地会话可访问范围可能变化；请在使用时核对导出结果和来源链接。原始对话通常包含个人信息，公开分享前请先检查并移除敏感内容。
+AI websites change their page structures, and local access to Codex conversations depends on the available context. Review exports and source links. Conversations may contain personal information; remove sensitive content before sharing publicly.
 
-## 许可证
+## License
 
-Echoes 使用 [MIT License](LICENSE)。AI Chat Exporter 是独立项目，不包含在本仓库中，并遵循其自己的许可证。
+Echoes is licensed under the [MIT License](LICENSE). AI Chat Exporter is an independent project, is not bundled with this repository, and is distributed under its own license.
 
+## Acknowledgements
+
+Thank you to [AI Chat Exporter](https://github.com/Covai-Labs/ace) for providing local export support across AI chat websites. Echoes recommends it as a browser-conversation capture option. AI Chat Exporter is independently maintained by Covai-Labs and follows its own license and release schedule.
