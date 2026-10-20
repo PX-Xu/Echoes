@@ -1,0 +1,16 @@
+# Keep private chat exports, review drafts, and local processing reports out of Git.
+Inbox/Raw/**
+!Inbox/Raw/README.md
+Inbox/Review/**
+!Inbox/Review/README.md
+Inbox/Processed/**
+!Inbox/Processed/README.md
+
+# Local-only brand exploration.
+echoes-wordmark-concept.png
+
+# Editor and operating-system files.
+.DS_Store
+.obsidian/
+.vscode/
+Thumbs.db
